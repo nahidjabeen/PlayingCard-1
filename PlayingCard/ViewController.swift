@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view, typically from a nib.
-        for _ in 1...10 {
+        for _ in 1...20 {
             if let card = deck.draw() {
                 print ( "\(card)" )
             }

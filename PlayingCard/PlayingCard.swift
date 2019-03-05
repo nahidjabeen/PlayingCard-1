@@ -11,13 +11,21 @@
 
 import Foundation
 
-struct PlayingCard
+struct PlayingCard : CustomStringConvertible // Protocol CustomStringConvertible helps with debug prints
 {
+    var description: String {
+        return "\(rank)\(suit)"
+    }
+    
     var suit : Suit
     var rank : Rank
     
     // playing card suit with raw value association of String
-    enum Suit : String {
+    enum Suit : String, CustomStringConvertible {
+        var description: String {
+            return String(self.rawValue)
+        }
+        
         case spades = "♠︎" // pips card # used for # of pips per card
         case hearts = "♥︎"
         case clubs = "♣︎"
@@ -27,7 +35,11 @@ struct PlayingCard
     }
     
     
-    enum Rank {
+    enum Rank : CustomStringConvertible {
+        var description: String {
+            return String(self.order)
+        }
+        
         
         case ace
         case face(String)
