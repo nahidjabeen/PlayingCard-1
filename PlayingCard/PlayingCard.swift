@@ -23,7 +23,8 @@ struct PlayingCard : CustomStringConvertible // Protocol CustomStringConvertible
     // playing card suit with raw value association of String
     enum Suit : String, CustomStringConvertible {
         var description: String {
-            return String(self.rawValue)
+            //return String(self.rawValue)
+            return rawValue
         }
         
         case spades = "♠︎" // pips card # used for # of pips per card
@@ -34,27 +35,20 @@ struct PlayingCard : CustomStringConvertible // Protocol CustomStringConvertible
         static var all = [Suit.spades, .hearts, .diamonds, .clubs]
     }
     
-    
     enum Rank : CustomStringConvertible {
         var description: String {
-            return String(self.order)
+            //return String(self.order)
+            switch self {
+                case .ace : return "A"
+                case .numeric(let pips) : return String(pips)
+                case .face(let kind) : return kind
+            }
         }
         
-        
+        // ranks are Ace, Face (J,Q,K), and numeric (Pips) cards
         case ace
         case face(String)
         case numeric(Int)
-        
-        var order : Int {
-            switch self {
-                case .ace : return 1
-                case .numeric ( let pips ) : return pips
-                case .face (let kind) where kind == "J" : return 11
-                case .face (let kind) where kind == "Q" : return 12
-                case .face (let kind) where kind == "K" : return 13
-                default : return 0 // make sure switch/case is exhaustive
-            }
-        }
         
         // convenient array of "all" playing card ranks ace, 2...10, jack..king
         static var all : [Rank] {
